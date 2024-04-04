@@ -39,10 +39,11 @@ def add_user(request):
 def book_list(request):
     books = Book.objects.all()
     total_books = books.count()
+    popular_books = Book.get_popular_books()
+    popular_genres = Book.get_popular_genres()
     return render(
-        request, "book_list.html", {"books": books, "total_books": total_books}
+        request, "book_list.html", {"books": books, "total_books": total_books, "popular_books": popular_books, "popular_genres": popular_genres}
     )
-
 
 def add_book(request):
     if request.method == "POST":
@@ -55,16 +56,6 @@ def add_book(request):
 
     return render(request, "add_book.html", {"form": form})
 
-
-def popular_book(request):
-    popular_books = Book.get_popular_books()
-    print(popular_books)
-    return render(request, "book_list.html", {"popular_books": popular_books})
-
-
-def popular_genre(request):
-    popular_genres = Book.get_popular_genres()
-    return render(request, "book_list.html", {"popular_genres": popular_genres})
 
 
 def borrow_book(request):

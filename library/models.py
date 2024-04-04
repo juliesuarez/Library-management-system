@@ -46,8 +46,6 @@ class Book(models.Model):
 
     def __str__(self):
         return self.name
-
-
 class BorrowedBook(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     user_name = models.CharField(max_length=100)
@@ -59,18 +57,9 @@ class BorrowedBook(models.Model):
     def __str__(self):
         return str(self.book)
 
-
-@receiver(post_save, sender=BorrowedBook)
-def update_available_copies(sender, instance, created, **kwargs):
-    if created:
-        instance.book.copies -= 1
-        instance.book.save()
     @staticmethod
     def get_overdue_books():
         overdue_books = BorrowedBook.objects.filter(
             due_date__lt=timezone.now(), returned=False
         )
         return overdue_books
-
-    def __str__(self):
-        return str(self.book)
