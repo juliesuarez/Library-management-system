@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group label {
+        margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        margin-top: 5px;
+        height: 40px;
+    }
+    #id_name{
+        border-color: green;
+        border-radius: 5px;
+        width:80%;
+        height: 40px;
+    }
+    #id_email{
+        border-color: green;
+        border-radius:5px;
+        width:80%;
+        height: 40px;
+    }
+    #id_phone_number{
+        border-color: green;
+        border-radius: 5px;
+        width:80%;
+        height: 40px;
+    }
+    input::placeholder {
+        color: black;
+    
+    }
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #2c3e50; 
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+    }
+</style>
+<form method="POST" enctype="multipart/form-data" action="{% url 'add_user' %}" id="myForm">
+    {% csrf_token %}
+    <div class="card" style="width: 50%; padding: 20px; box-sizing: border-box; margin-top: 3px; margin-left: 300px;">
+        <h5 class="card-header" style="color:#000; background-color: white; margin-top: 18px;">User Registration Form</h5>
+        <div class="card-body">
+            <div class="form-group" style="color:#black;">
+                <label for="id_name">{{ form.name.label }}</label>
+                {{ form.name }}
+            </div>
+            <div class="form-group" style="color:#black;">
+                <label for="id_email">{{ form.email.label }}</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group" style="color:#black;">
+                <label for="id_phone_number">{{ form.phone_number.label }}</label>
+                {{ form.phone_number }}
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0px;">
+                <button type="submit" class="btn btn-primary" style=" color: #fff; width: 100px;">Register</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="footer">
+    <p>&copy; 2024 Library Management System</p>
+</div>
+
+{% endblock %}

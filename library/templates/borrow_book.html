@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group label {
+        margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        margin-top: 5px;
+    }
+    #id_name{
+        border-color: black;
+        border-radius: 5px;
+        width:80%;
+        height: 30%;
+    }
+    #id_due_date{
+        border-color: green;
+        border-radius:5px;
+        width:80%;
+        height: 35px;
+        margin-left:100px;
+    }
+    #id_book{
+        border-color: green;
+        border-radius: 5px;
+        width:80%;
+        height: 35px;
+        margin-left:100px;
+    }
+    #id_user_name{
+        border-color: green;
+        border-radius: 5px;
+        width:80%;
+        height: 35px;
+        margin-left:100px;
+    }
+    #id_fine{
+        border-color: green;
+        border-radius: 5px;
+        width:80%;
+        height: 35px;
+        margin-left:100px;
+    }
+    #id_borrowed_date{
+        border-color: green;
+        border-radius: 5px;
+        width:80%;
+        height: 35px;
+        margin-left:100px;
+    }
+    input::placeholder {
+        color: #black;
+    
+    }
+    label{
+        margin-left:100px;
+    }
+</style>
+<form method="POST" enctype="multipart/form-data" action="{% url 'borrow_book' %}" id="BookForm">
+    {% csrf_token %}
+    <div class="card" style="width: 50%; padding: 20px; box-sizing: border-box; margin-top: 3px; margin-left: 300px;">
+        <h5 class="card-header" style="color:#2c3e50; background-color: white; margin-top: 18px;">Use Form to Borrow a Book</h5>
+        <div class="card-body">
+            <div class="form-group" style="color:black;">
+                {{ form.as_p }}
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0px;">
+                <button type="submit" class="btn btn-primary" style="color: #fff; width: 100px;">Register</button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

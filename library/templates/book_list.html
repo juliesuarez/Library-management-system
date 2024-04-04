@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<h5 class="card-title" style="color: #2c3e50; background: white; height: 50px; text-align: center;">All Available Books in the System</h5>
+<div class="card" style="width: 100%; margin-top: 15px; overflow: hidden;">
+    <div class="card-body" style="overflow-y: auto; max-height: 400px;"> 
+        <div class="container" style="overflow-x:auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0px;">
+                <a href="{% url 'add_book' %}">
+                    <button class="btn btn-secondary" style="background-color: #2c3e50; color: #fff; width: 150px;">
+                        <i class="fa fa-book"></i> Add Book
+                    </button>
+                    
+                </a>
+                <p> Total No. of Books: {{ total_books }}</p>
+                <p> Popular Books: 
+                    {% for book in popular_books %}
+                        {{ book.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <p> Popular Genres: 
+                    {% for genre in popular_genres %}
+                        {{ genre.genre }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            </div>
+            <hr style="border: 1px solid black;">
+            <table id="books-table" class="table" style="margin-bottom: 0;">
+                <thead>
+                    <tr>
+                        <th style="color:#2c3e50;">Name of the Book</th>
+                        <th style="color:#2c3e50;">Genre of the Book</th>
+                        <th style="color:#2c3e50;">Availability of the Book</th>
+                        <th style="color:#2c3e50;">Copies of the Book</th>
+                        <th style="color:#2c3e50;">Author of the Book</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in books %}
+                    <tr>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.genre }}</td>
+                        <td>{{ book.availability }}</td>
+                        <td>{{ book.copies }}</td>
+                        <td>{{ book.author }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#books-table').DataTable();
+    });
+</script>
+{% endblock %}
