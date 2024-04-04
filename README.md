@@ -2,13 +2,14 @@ Library Management System.
 ## Endpoints
 
 Here are the available urls for this library management system:
-localhost`/` 
-localhost`/add_user/` 
-localhost`/user_list/` 
-localhost `/add_book/` 
-localhost`/book_list/`
-localhost `/borrow_book/` 
-localhost`/borrowed-books/` 
+- **Home**: `/` - [Index](#index)
+- **Add User**: `/add_user/` - [Add User](#add-user)
+- **User List**: `/user_list/` - [User List](#user-list)
+- **Add Book**: `/add_book/` - [Add Book](#add-book)
+- **Book List**: `/book_list/` - [Book List](#book-list)
+- **Borrow Book**: `/borrow_book/` - [Borrow Book](#borrow-book)
+- **Borrowed Books**: `/borrowed-books/` - [Borrowed Books List](#borrowed-books-list)
+
 
 ### Index
 Description of the index view goes here.
