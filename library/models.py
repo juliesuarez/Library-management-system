@@ -1,8 +1,6 @@
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import Count
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.utils import timezone
 
 
@@ -46,6 +44,8 @@ class Book(models.Model):
 
     def __str__(self):
         return self.name
+
+
 class BorrowedBook(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     user_name = models.CharField(max_length=100)

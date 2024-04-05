@@ -15,12 +15,12 @@
                 <p> Total No. of Books: {{ total_books }}</p>
                 <p> Popular Books: 
                     {% for book in popular_books %}
-                        {{ book.name }}
+                        {{ book.name }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </p>
                 <p> Popular Genres: 
                     {% for genre in popular_genres %}
-                        {{ genre.genre }}
+                        {{ genre.genre }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </p>
             </div>
