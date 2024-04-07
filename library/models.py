@@ -57,7 +57,7 @@ class BorrowedBook(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:  # If this is a new instance
-            self.book.copies -= 1  # Decrement the count of available copies
+            self.book.available_copies -= 1  # Decrement the count of available copies
             self.book.save()  # Save the updated book instance
         super().save(*args, **kwargs)
 
