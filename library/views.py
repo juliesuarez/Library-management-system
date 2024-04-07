@@ -70,10 +70,18 @@ def borrow_book(request):
         form = BorrowedBookForm(request.POST)
         if form.is_valid():
             borrowed_book = form.save(commit=False)
-            borrowed_book.save()
-            return redirect(
-                "borrowed_books_list"
-            )  # Redirect to borrowed books list page
+            
+            # Decrement the count of available copies of the borrowed book
+            book = borrowed_book.book
+            if book.copies > 0:
+                book.copies -= 1
+                book.save()
+                borrowed_book.save()
+            else:
+                # Redirect to a page indicating unavailability of the book
+                return render(request, "book_unavailable.html", {"book": book})
+                
+            return redirect("borrowed_books_list")
     else:
         form = BorrowedBookForm()
     return render(request, "borrow_book.html", {"form": form})
