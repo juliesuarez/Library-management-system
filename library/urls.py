@@ -8,6 +8,7 @@ from .views import (
     borrowed_books_list,
     index,
     user_list,
+    return_book,
 )
 
 urlpatterns = [
@@ -19,4 +20,6 @@ urlpatterns = [
     path("borrow_book/", borrow_book, name="borrow_book"),
     path("borrowed-books/", borrowed_books_list, name="borrowed-books"),
     path("borrowed_books_list/", borrowed_books_list, name="borrowed_books_list"),
+    path("return_book/<int:borrowed_book_id>/", return_book, name="return_book"),
+
 ]

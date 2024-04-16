@@ -2,8 +2,9 @@ from django.shortcuts import redirect, render
 
 from .forms import BookAddition, BorrowedBookForm, UserAddition
 from .models import Book, BorrowedBook, User
-
-
+from django.db.models import Sum
+from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_POST
 # Create your views here.
 def index(request):
     return render(request, "index.html")
@@ -39,6 +40,7 @@ def add_user(request):
 def book_list(request):
     books = Book.objects.all()
     total_books = books.count()
+    total_copies = Book.objects.aggregate(total_copies=Sum('copies'))['total_copies']
     popular_books = Book.get_popular_books()
     popular_genres = Book.get_popular_genres()
     return render(
@@ -47,6 +49,7 @@ def book_list(request):
         {
             "books": books,
             "total_books": total_books,
+            "total_copies": total_copies,
             "popular_books": popular_books,
             "popular_genres": popular_genres,
         },
@@ -73,8 +76,8 @@ def borrow_book(request):
             
             # Decrement the count of available copies of the borrowed book
             book = borrowed_book.book
-            if book.available_copies > 0:
-                book.available_copies -= 1
+            if book.copies > 0:
+                book.copies -= 1
                 book.save()
                 borrowed_book.save()
             else:
@@ -89,9 +92,23 @@ def borrow_book(request):
 
 def borrowed_books_list(request):
     borrowed_books = BorrowedBook.objects.all()
-    total_borrowed = borrowed_books.count()
+    total_borrowed = BorrowedBook.objects.count()  
     return render(
         request,
         "borrowed_books_list.html",
         {"borrowed_books": borrowed_books, "total_borrowed": total_borrowed},
     )
+
+@require_POST
+def return_book(request, borrowed_book_id):
+    borrowed_book = get_object_or_404(BorrowedBook, pk=borrowed_book_id)
+    
+    # Mark the book as returned
+    borrowed_book.returned = True
+    borrowed_book.save()
+
+    # Increment the available copies of the book
+    borrowed_book.book.copies += 1
+    borrowed_book.book.save()
+
+    return redirect('borrowed_books_list')  # Redirect to a view showing borrowed books

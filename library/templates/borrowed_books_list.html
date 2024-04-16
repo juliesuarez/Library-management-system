@@ -15,6 +15,7 @@
                         <th style="color:#2c3e50">Borrowed Date</th>
                         <th style="color:#2c3e50">Fine</th>
                         <th style="color:#2c3e50"> Name</th>
+                        <th style="color:#2c3e50">Actions</th> <!-- Add this column for actions -->
                     </tr>
                 </thead>
                 <tbody>
@@ -26,6 +27,14 @@
                         <td>{{ borrowed_book.borrowed_date }}</td>
                         <td>{{ borrowed_book.fine }}</td>
                         <td>{{ borrowed_book.user_name }}</td>
+                        <td>
+                            {% if not borrowed_book.returned %}
+                                <form action="{% url 'return_book' borrowed_book.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary" style="background-color: #2c3e50;">Return</button>
+                                </form>
+                            {% endif %}
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

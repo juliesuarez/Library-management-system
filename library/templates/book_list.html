@@ -12,7 +12,6 @@
                     </button>
                     
                 </a>
-                <p> Total No. of Books: {{ total_books }}</p>
                 <p> Popular Books: 
                     {% for book in popular_books %}
                         {{ book.name }}{% if not forloop.last %}, {% endif %}
@@ -27,13 +26,13 @@
             <hr style="border: 1px solid black;">
             <table id="books-table" class="table" style="margin-bottom: 0;">
                 <thead>
+                    <p> Total No. of Copies of Books: {{ total_copies }}</p>
                     <tr>
                         <th style="color:#2c3e50;">Name of the Book</th>
                         <th style="color:#2c3e50;">Genre of the Book</th>
                         <th style="color:#2c3e50;">Availability of the Book</th>
-                        <th style="color:#2c3e50;">Copies of the Book</th>
+                        <th style="color:#2c3e50;"> Copies of the book</th>
                         <th style="color:#2c3e50;">Author of the Book</th>
-                        <th style="color:#2c3e50;">Available Copies</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,7 +43,6 @@
                         <td>{{ book.availability }}</td>
                         <td>{{ book.copies }}</td>
                         <td>{{ book.author }}</td>
-                        <td>{{ book.available_copies }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
