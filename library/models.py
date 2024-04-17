@@ -26,7 +26,9 @@ class Book(models.Model):
     genre = models.CharField(max_length=100)
     availability = models.BooleanField(default=True)
     copies = models.IntegerField(default=1)
-    available_copies = models.IntegerField(default=1)  # New field to track available copies
+    available_copies = models.IntegerField(
+        default=1
+    )  # New field to track available copies
     author = models.CharField(max_length=100)
 
     @staticmethod
@@ -54,15 +56,7 @@ class BorrowedBook(models.Model):
     due_date = models.DateTimeField()
     returned = models.BooleanField(default=False)
     fine = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
-
-    def save(self, *args, **kwargs):
-        if not self.pk:  # If this is a new instance
-            self.book.copies -= 1  # Decrement the count of available copies
-            self.book.save()  # Save the updated book instance
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return str(self.book)
+    number_of_books_borrowed = models.IntegerField()
 
     @staticmethod
     def get_overdue_books():

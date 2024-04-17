@@ -86,6 +86,7 @@ def borrow_book(request):
             # Decrement the count of available copies of the borrowed book
             book = borrowed_book.book
             if book.copies > 0:
+                
                 book.copies -= 1
                 book.save()
                 borrowed_book.save()
