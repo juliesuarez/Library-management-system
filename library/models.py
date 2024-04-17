@@ -40,10 +40,11 @@ class Book(models.Model):
     @staticmethod
     def get_popular_genres():
         return (
-            Book.objects.values("genre")
-            .annotate(num_books=Count("id"))
-            .order_by("-num_books")[:2]
+            Book.objects.values("genre")  # Selecting the genre field from Book objects
+            .annotate(num_books=Count("id"))  # Counting the number of books for each genre
+            .order_by("-num_books")[:2]  # Ordering the genres by the number of books in descending order and selecting the top 2
         )
+
 
     def __str__(self):
         return self.name
